@@ -6,12 +6,12 @@
  */
 void pall(stack_t **stack, unsigned int line_number)
 {
-	stack_t *h = **stack;
+	(void)line_number;
+	stack_t *h = *stack;
 
 	while (h)
 	{
 		printf("%d\n", h->n);
-		counter++;
 		h = h->next;
 	}
 }

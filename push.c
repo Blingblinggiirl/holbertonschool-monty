@@ -8,6 +8,7 @@ void push(stack_t **stack, unsigned int line_number)
 {
 	(void)line_number;
 	stack_t *n_node;
+	stack_t *aux;
 
 	n_node = malloc(sizeof(stack_t));
 	if (!n_node)
@@ -17,20 +18,23 @@ void push(stack_t **stack, unsigned int line_number)
 	}
 	n_node->prev = NULL;
 	n_node->next = NULL;
-	n_node->n = value;
+	n_node->n = data;
 
-	if (!(*stack))
+	if ((*stack) == NULL)
 	{
-		*stack = n_node;
+		(*stack) = n_node;
 		return;
 	}
-	(*stack)->prev = n_node;
-	n_node->prev = *stack;
-	*stack = n_node;
+	aux = (*stack);
+	aux->prev = n_node;
+	n_node->next = aux;
+	(*stack) = n_node;
 }
 
 /**
- *
+ * getdata - function
  */
-void getvalue(char *token
+void getdata(char *token_2)
+{
+	data = atoi(token_2);
 }

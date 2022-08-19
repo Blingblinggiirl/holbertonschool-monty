@@ -10,15 +10,15 @@ int data = 0;
 
 int main(int argc, char **argv)
 {
-	FILE * file;
+	FILE *file;
 	char *txt = NULL, *token = NULL;
 	size_t size = 0;
-	int line = 1;
+	int line = 0;
 	stack_t *stack = NULL;
 
 	if (argc != 2)
 	{
-		perror("USAGE: monty file");
+		fprintf(stderr, "USAGE: monty file\n");
 		exit(EXIT_FAILURE);
 	}
 
@@ -31,15 +31,11 @@ int main(int argc, char **argv)
 
 	while (getline(&txt, &size, file) != -1)
 	{
-		token = strtok(txt, " \t\n\r");
-		if (token == NULL)
-			continue;
-		if (getfunction(token, stack, line) == -1)
+		line++;
+		if (getfunction(txt, &stack, line) == -1)
 		{
 			fprintf(stderr, "L%d: unknown instruction %s\n", line, token);
-			status = 1;
-			break;
+			exit(EXIT_FAILURE);
 		}
-		line++;
 	}
 }

@@ -4,8 +4,15 @@
  * @token: Pointer to token
  * Return: A pointer to a function.
  */
-int getfunction(char *token, stack_t **stack, unsigned int line)
+int getfunction(char *txt, stack_t **stack, unsigned int line)
 {
+	char *token;
+	char *token2;
+	int i;
+	
+	token = strtok(txt, " \t\n\r");
+	if (token == NULL)
+		return (0);
 	instruction_t array[] = {
 		{"push", push},
 		{"pall", pall},
@@ -16,15 +23,21 @@ int getfunction(char *token, stack_t **stack, unsigned int line)
 		{"add", oadd},
 		{"nop", onop}*/
 	};
-	int i;
-	if (token)
+
+	for (i = 0; array[i].opcode != NULL; i++)
 	{
-		for (i = 0; array[i].opcode != NULL; i++)
+		if (strcmp(token, array[i].opcode) == 0)
 		{
-			if (strcmp(token, array[i].opcode) == 0)
-				array[i].f(stack, line);
+			if (i == 0)
+			{
+				token2 = strtok(NULL, " \t\n\r");
+		/** si token 2 no existe, te estan pasando push sin un numero*/
+				getdata(token2);
+			}
+			array[i].f(stack, line);
+			data = 0;
+			return (0);
 		}
 	}
-	else
-		return (-1);
+	return (-1);
 }
