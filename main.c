@@ -1,4 +1,5 @@
 #include "monty.h"
+int data = 0;
 
 /**
  * main - function
