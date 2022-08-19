@@ -1,29 +1,33 @@
-#includei"monty.h"
+#include "monty.h"
+
 /**
- *
- * (
+ * main - function
+ * @argc: counter
+ * @argv: argument
+ * Return: int
  */
+
 int main(int argc, char **argv)
 {
-	FILE *file
+	FILE * file
 	char *txt = NULL, *token = NULL;
-	size_t size = 0; 
+	size_t size = 0;
 	int i;
 	stack_t *stack = NULL;
 
 	if (argc != 2)
 	{
 		perror("USAGE: monty file");
-		exit (EXIT_FAILURE);
+		exit(EXIT_FAILURE);
 	}
 
 	file = fopen(argv[1], 'r');
 	if (!file)
 	{
 		dprintf(STDERR_FILENO, "Error: Can't open file %s\n", argv[1]);
-		exit (EXIT_FAILURE);
+		exit(EXIT_FAILURE);
 	}
-I
+
 	while (getline(&txt, &size, file) != -1)
 	{
 		token = strtok(txt, " \t\n\r");
@@ -42,14 +46,5 @@ I
 			status = 1;
 			break;
 		}
-
-
-
-
-
-
-
-		
 	}
-
 }
