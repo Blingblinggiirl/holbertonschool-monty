@@ -6,6 +6,7 @@
  */
 void push(stack_t **stack, unsigned int line_number)
 {
+	(void)line_number;
 	stack_t *n_node;
 
 	n_node = malloc(sizeof(stack_t));
@@ -26,4 +27,10 @@ void push(stack_t **stack, unsigned int line_number)
 	(*stack)->prev = n_node;
 	n_node->prev = *stack;
 	*stack = n_node;
+}
+
+/**
+ *
+ */
+void getvalue(char *token
 }
