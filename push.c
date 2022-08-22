@@ -6,35 +6,32 @@
  */
 void push(stack_t **stack, unsigned int line_number)
 {
-	(void)line_number;
 	stack_t *n_node;
-	stack_t *aux;
+	char *list_number;
+
+	list_number = strtok(NULL," \n\t\r$");
+	if (!list_number)
+	{
+		fprintf(stderr, "L%d: usage: push integer\n", line_number);
+		free_list(*stack);
+		exit(EXIT_FAILURE);
+	}
 
 	n_node = malloc(sizeof(stack_t));
 	if (!n_node)
 	{
-		dprintf(2, "Error: malloc failed");
+		fprintf(stderr, "Error: malloc failed\n");
+		free_list(*stack);
 		exit(EXIT_FAILURE);
 	}
+
+	n_node->n = atoi(list_number);
+	n_node->next = *stack;
 	n_node->prev = NULL;
-	n_node->next = NULL;
-	n_node->n = data;
 
-	if ((*stack) == NULL)
+	if ((*stack) != NULL)
 	{
-		(*stack) = n_node;
-		return;
+		(*stack)->prev = n_node;
 	}
-	aux = (*stack);
-	aux->prev = n_node;
-	n_node->next = aux;
 	(*stack) = n_node;
-}
-
-/**
- * getdata - function
- */
-void getdata(char *token_2)
-{
-	data = atoi(token_2);
 }
