@@ -16,12 +16,12 @@ int getfunction(char *txt, stack_t **stack, unsigned int line)
 	instruction_t array[] = {
 		{"push", push},
 		{"pall", pall},
-		{NULL, NULL}
+		{NULL, NULL},
 		/*{"pint", opint},
 		{"pop", opop},
 		{"swap", oswap},
-		{"add", oadd},
-		{"nop", onop}*/
+		{"add", oadd},*/
+		{"nop", nop}
 	};
 
 	for (i = 0; array[i].opcode != NULL; i++)

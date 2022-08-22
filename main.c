@@ -28,7 +28,6 @@ int main(int argc, char **argv)
 		dprintf(2, "Error: Can't open file %s\n", argv[1]);
 		exit(EXIT_FAILURE);
 	}
-
 	while (getline(&txt, &size, file) != -1)
 	{
 		line++;
