@@ -15,11 +15,6 @@ void (*get_opcode(char *str,  int counterline))(stack_t **, unsigned int)
 		{"pop", _pop},
 		{"swap", _swap},
 		{"add", _add},
-		{"nop", _nop},
-		{"sub", _sub},
-		{"div", _div},
-		{"mul", _mul},
-		{"mod", _mod},
 		{NULL, NULL}
 	};
 
