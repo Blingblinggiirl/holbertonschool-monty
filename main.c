@@ -1,40 +1,45 @@
 #include "monty.h"
-int data = 0;
 
 /**
- * main - function
- * @argc: counter
- * @argv: argument
- * Return: int
+ * main - Coordinates the execution of opcodes
+ * using our interpreter for Monty ByteCodes files
+ * @ac : argument count
+ * @av : list of arguments
+ *
+ * Return: 0 in success, EXIT_FAILURE value otherwise
  */
 
-int main(int argc, char **argv)
+int main(int ac, char **av)
 {
-	FILE *file;
-	char *txt = NULL, *token = NULL;
-	size_t size = 0;
-	int line = 0;
-	stack_t *stack = NULL;
+	int i = 0;
+	unsigned int counterline = 1;
+	char *result, **token;
+	stack_t *stack_h = NULL;
+	void (*opcode)(stack_t **stack, unsigned int line_number);
 
-	if (argc != 2)
+	(void) av;
+
+	if (ac != 2)
 	{
-		fprintf(stderr, "USAGE: monty file\n");
-		exit(EXIT_FAILURE);
+		write(STDERR_FILENO, "USAGE: monty file\n", 18);
+		free_dlistint(stack_h);
+		exit(EXIT_FAILURE); /* return a int always != 0 */
 	}
 
-	file = fopen(argv[1], "r");
-	if (!file)
+	result = openfile(av[1]);
+	token = set_strtok(result, '\n');
+	while (token[i])
 	{
-		dprintf(2, "Error: Can't open file %s\n", argv[1]);
-		exit(EXIT_FAILURE);
-	}
-	while (getline(&txt, &size, file) != -1)
-	{
-		line++;
-		if (getfunction(txt, &stack, line) == -1)
+		if (token[i][0])
 		{
-			fprintf(stderr, "L%d: unknown instruction %s\n", line, token);
-			exit(EXIT_FAILURE);
+			opcode = get_opcode(token[i], counterline);
+			opcode(&stack_h, counterline);
 		}
+		counterline++;
+		i++;
 	}
+	free_grid(token);
+	free(result);
+	free_dlistint(stack_h);
+	return (0);
 }
