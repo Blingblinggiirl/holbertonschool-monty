@@ -1,11 +1,13 @@
 #ifndef MONTY_H
 #define MONTY_H
+#define _POSIX_C_SOURCE 200809L /* to use dprintf in error messages */
 #include <stdio.h>
-#include <stdlib.h>
-#include <fcntl.h>
 #include <string.h>
-
-extern int data;
+#include <stdlib.h>
+#include <sys/stat.h> /* to use stat */
+#include <fcntl.h> /* to use open */
+#include <unistd.h> /* to use write and print error messages */
+extern int global_variable;
 
 /**
  * struct stack_s - doubly linked list representation of a stack (or queue)
@@ -16,11 +18,12 @@ extern int data;
  * Description: doubly linked list node structure
  * for stack, queues, LIFO, FIFO
  */
+
 typedef struct stack_s
 {
-        int n;
-        struct stack_s *prev;
-        struct stack_s *next;
+int n;
+struct stack_s *prev;
+struct stack_s *next;
 } stack_t;
 
 /**
@@ -31,17 +34,30 @@ typedef struct stack_s
  * Description: opcode and its function
  * for stack, queues, LIFO, FIFO
  */
+
 typedef struct instruction_s
 {
-        char *opcode;
-        void (*f)(stack_t **stack, unsigned int line_number);
+char *opcode;
+void (*f)(stack_t **stack, unsigned int line_number);
 } instruction_t;
 
-void free_list(stack_t *head);
-int getfunction(char *token, stack_t **stack, unsigned int line);
-void push(stack_t **stack, unsigned int line_number);
-void pall(stack_t **stack, unsigned int line_number);
-void getdata(char *token);
-void nop(stack_t **stack, unsigned int line_number);
+/* functions */
+char *openfile(char *filename);
+char **set_strtok(char *s, char delimeter);
+void (*get_opcode(char *str, int counterline))(stack_t **, unsigned int);
+void _pall(stack_t **stack, unsigned int line_number);
+void _pint(stack_t **stack, unsigned int line_number);
+void _swap(stack_t **stack, unsigned int line_number);
+void _pop(stack_t **stack, unsigned int line_number);
+void _push(stack_t **stack, unsigned int line_number);
+void _add(stack_t **stack, unsigned int line_number);
+void _nop(stack_t **stack, unsigned int line_number);
+void free_grid(char **grid);
+int verify_digit(char *num);
+void free_dlistint(stack_t *head);
+void _sub(stack_t **stack, unsigned int line_number);
+void _div(stack_t **stack, unsigned int line_number);
+void _mul(stack_t **stack, unsigned int line_number);
+void _mod(stack_t **stack, unsigned int line_number);
 
 #endif
